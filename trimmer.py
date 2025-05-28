@@ -3,16 +3,21 @@ from typing import List, Tuple
 import os
 import argparse
 
-def read_timestamps(file_path: str) -> List[Tuple[str, str]]:
-    """Reads timestamp pairs from a text file."""
+def read_timestamps(file_path: str) -> List[Tuple[str, str, str]]:
+    """Reads clip names and timestamp pairs from a text file."""
     with open(file_path, 'r') as f:
         lines = f.readlines()
-    timestamps: List[Tuple[str, str]] = []
+    clips: List[Tuple[str, str, str]] = []
     for line in lines:
-        start_end = line.strip().split(',')
-        if len(start_end) == 2:
-            timestamps.append((normalize_timestamp(start_end[0]), normalize_timestamp(start_end[1])))
-    return timestamps
+        parts = [p.strip() for p in line.strip().split(',')]
+        if len(parts) == 3:
+            name, start, end = parts
+            clips.append((
+                name,
+                normalize_timestamp(start),
+                normalize_timestamp(end)
+            ))
+    return clips
 
 def normalize_timestamp(time_str: str) -> str:
     """Ensures the timestamp is in HH:MM:SS format."""
@@ -26,21 +31,23 @@ def create_clips(
     timestamps_file: str,
     output_dir: str = 'clips'
 ) -> None:
-    """Creates video clips from a list of timestamps."""
+    """Creates video clips from a list of named timestamp ranges."""
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    timestamps: List[Tuple[str, str]] = read_timestamps(timestamps_file)
-    video: VideoFileClip = VideoFileClip(video_path)
+    clips = read_timestamps(timestamps_file)
+    video = VideoFileClip(video_path)
 
-    for idx, (start, end) in enumerate(timestamps):
+    for name, start, end in clips:
         try:
-            print(f"Creating clip {idx+1}: {start} to {end}")
-            clip: VideoFileClip = video.subclip(start, end)
-            output_path: str = os.path.join(output_dir, f"clip_{idx+1}.mp4")
+            print(f"Creating clip '{name}': {start} to {end}")
+            clip = video.subclip(start, end)
+            # sanitize the name if needed (e.g. remove spaces)
+            safe_name = "".join(c if c.isalnum() or c in (' ', '_', '-') else '_' for c in name).strip()
+            output_path = os.path.join(output_dir, f"{safe_name}.mp4")
             clip.write_videofile(output_path, codec='libx264', audio_codec='aac')
         except Exception as e:
-            print(f"Error creating clip {idx+1}: {e}")
+            print(f"Error creating clip '{name}': {e}")
 
     video.close()
 
