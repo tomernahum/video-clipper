@@ -23,3 +23,5 @@ you can also add comments with #
 if you start a line with ! the program will skip all lines except for that line (for when you need to regenerate just one or two clips that you messed up)
 
 if a file name/path is the same as an existing file it will overwrite that file
+
+to make a new timestamps file copy an old one and then use editor features + ai autocomplete to change and remove the needed values

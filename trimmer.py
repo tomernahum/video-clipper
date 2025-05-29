@@ -5,32 +5,37 @@ import argparse
 
 def read_timestamps(file_path: str) -> List[Tuple[str, str, str]]:
     """Reads clip names and timestamp pairs from a text file."""
+    
+    def normalize_timestamp(time_str: str) -> str:
+        """Ensures the timestamp is in HH:MM:SS.F format."""
+        parts = time_str.strip().split(':')
+        while len(parts) < 3:
+            parts.insert(0, '00')  # Prepend zeros for missing hours/minutes
+        return ':'.join(part.zfill(2) for part in parts)
     with open(file_path, 'r') as f:
         lines = f.readlines()
 
     # for when you need to regenerate just one or two clips
     if any(line.startswith('!') for line in lines):
-        lines = [line for line in lines if line.startswith('!')]
+        lines = [line[1:] for line in lines if line.startswith('!')]
 
     clips: List[Tuple[str, str, str]] = []
     for line in lines:
         clean_line = line.strip().split('#')[0]
         parts = [p.strip() for p in clean_line.split(',')]
-        if len(parts) == 3:
-            name, start, end = parts
-            clips.append((
-                name,
-                normalize_timestamp(start),
-                normalize_timestamp(end)
-            ))
+        if len(parts) != 3:
+            if len(clean_line) > 0:
+                print(f'Skipped invalid line: "{clean_line}"')
+            continue
+        name, start, end = parts
+        clips.append((
+            name,
+            normalize_timestamp(start),
+            normalize_timestamp(end)
+        ))
     return clips
 
-def normalize_timestamp(time_str: str) -> str:
-    """Ensures the timestamp is in HH:MM:SS format."""
-    parts = time_str.strip().split(':')
-    while len(parts) < 3:
-        parts.insert(0, '00')  # Prepend zeros for missing hours/minutes
-    return ':'.join(part.zfill(2) for part in parts)
+
 
 def create_clips(
     video_path: str,
