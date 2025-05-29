@@ -1,4 +1,4 @@
-from moviepy.editor import VideoFileClip
+from moviepy import VideoFileClip
 from typing import List, Tuple
 import os
 import argparse
@@ -7,9 +7,15 @@ def read_timestamps(file_path: str) -> List[Tuple[str, str, str]]:
     """Reads clip names and timestamp pairs from a text file."""
     with open(file_path, 'r') as f:
         lines = f.readlines()
+
+    # for when you need to regenerate just one or two clips
+    if any(line.startswith('!') for line in lines):
+        lines = [line for line in lines if line.startswith('!')]
+
     clips: List[Tuple[str, str, str]] = []
     for line in lines:
-        parts = [p.strip() for p in line.strip().split(',')]
+        clean_line = line.strip().split('#')[0]
+        parts = [p.strip() for p in clean_line.split(',')]
         if len(parts) == 3:
             name, start, end = parts
             clips.append((
@@ -29,7 +35,7 @@ def normalize_timestamp(time_str: str) -> str:
 def create_clips(
     video_path: str,
     timestamps_file: str,
-    output_dir: str = 'clips'
+    output_dir: str = 'output_clips'
 ) -> None:
     """Creates video clips from a list of named timestamp ranges."""
     if not os.path.exists(output_dir):
@@ -41,7 +47,7 @@ def create_clips(
     for name, start, end in clips:
         try:
             print(f"Creating clip '{name}': {start} to {end}")
-            clip = video.subclip(start, end)
+            clip = video.subclipped(start, end)
             # sanitize the name if needed (e.g. remove spaces)
             safe_name = "".join(c if c.isalnum() or c in (' ', '_', '-') else '_' for c in name).strip()
             output_path = os.path.join(output_dir, f"{safe_name}.mp4")
@@ -66,8 +72,8 @@ def parse_args() -> argparse.Namespace:
         help="Path to the text file containing start,end timestamps (e.g. timestamps.txt)"
     )
     parser.add_argument(
-        "-o", "--output-dir", default="clips",
-        help="Directory where clips will be saved (default: clips/)"
+        "-o", "--output-dir", default="output_clips",
+        help="Directory where clips will be saved (default: output_clips/)"
     )
     return parser.parse_args()
 
