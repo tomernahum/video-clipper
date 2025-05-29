@@ -1,0 +1,10 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+__pycache__
+venv
+pyvenv.cfg
+bin
+include
+lib
+
+input_clips
+output_clips
