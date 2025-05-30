@@ -1,7 +1,7 @@
 
-# Front matter:   # find two differing points to align the video speeds
-timestamps_written_here: 0:05, 0:09
-equiv_real_timestamps: 0:05, 0:09
+# Front matter:   # find two events that are the same in both videos and write their timestamps
+timestamps_written_here: 0:10.85, 6:18.69, 3:43
+equiv_real_timestamps: 0:11.30, 6:30.70, 3:50
 
 words_written_here: "OpenMV"
 words_to_replace_them_with: "See3"
