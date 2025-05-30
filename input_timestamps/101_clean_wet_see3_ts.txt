@@ -1,4 +1,11 @@
 
+# Front matter:   # find two differing points to align the video speeds
+timestamps_written_here: 0:05, 0:09
+equiv_real_timestamps: 0:05, 0:09
+
+words_written_here: "OpenMV"
+words_to_replace_them_with: "See3"
+
 
 101_Clean_OpenMV_L_850, 0:09, 0:36
 101_Clean_OpenMV_R_850, 0:45, 1:17   #question somewhere around here

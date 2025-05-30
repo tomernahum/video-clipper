@@ -25,3 +25,5 @@ if you start a line with ! the program will skip all lines except for that line 
 if a file name/path is the same as an existing file it will overwrite that file
 
 to make a new timestamps file copy an old one and then use editor features + ai autocomplete to change and remove the needed values
+
+to reuse a timestamps file from openmv<->see3 trim the input video's start with OS tools and copy the timestamps file, maybe a better method exists
