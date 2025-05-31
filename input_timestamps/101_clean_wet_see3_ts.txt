@@ -2,17 +2,18 @@
 # Front matter:   # find two events that are the same in both videos and write their timestamps
 timestamps_written_here: 0:10.85, 6:18.69, 3:43
 equiv_real_timestamps: 0:11.30, 6:30.70, 3:50
+#lengthen_clips_by: 16 # for some reason this is needed...
 
 words_written_here: "OpenMV"
 words_to_replace_them_with: "See3"
 
 
 101_Clean_OpenMV_L_850, 0:09, 0:36
-101_Clean_OpenMV_R_850, 0:45, 1:17   #question somewhere around here
+101_Clean_OpenMV_R_850, 0:45, 1:17   
 101_Clean_OpenMV_L_890, 1:35, 2:05.3
 101_Clean_OpenMV_R_890, 2:12, 2:46.3
 
 101_Wet_OpenMV_L_850, 3:32, 4:01
 101_Wet_OpenMV_R_850, 4:08, 4:43.0
-101_Wet_OpenMV_L_890, 5:06, 5:37.5 #or should it start at 5:09
+101_Wet_OpenMV_L_890, 5:06, 5:37.5 
 101_Wet_OpenMV_R_890, 5:43, 6:18.5

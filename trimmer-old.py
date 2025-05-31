@@ -3,6 +3,7 @@ from moviepy import VideoFileClip
 from typing import List, Tuple
 import os
 import argparse
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 
     
@@ -80,7 +81,8 @@ def read_timestamps(file_path: str) -> List[Tuple[str, float, float]]:
     
     # front matter:
     VALID_FRONT_MATTER_KEYS = [
-        'timestamps_written_here', 'equiv_real_timestamps', 'words_written_here', 'words_to_replace_them_with'
+        'timestamps_written_here', 'equiv_real_timestamps', 'lengthen_clips_by'
+        'words_written_here', 'words_to_replace_them_with', 
     ]
     front_matter_lines = [line.split(":", 1) for line in lines if any(line.startswith(key) for key in VALID_FRONT_MATTER_KEYS)]
     front_matter_kvs = {line[0].strip(): line[1].strip() for line in front_matter_lines}
@@ -126,6 +128,12 @@ def read_timestamps(file_path: str) -> List[Tuple[str, float, float]]:
         
         for i in range(len(words_written_here)):
             lines = [line.replace(words_written_here[i], words_to_replace_them_with[i]) for line in lines]
+
+
+    if 'lengthen_clips_by' in front_matter_kvs:
+        lengthen_clips_by = float(front_matter_kvs['lengthen_clips_by'])
+    else:
+        lengthen_clips_by = 0.0
         
     # end frontmatter
     lines = lines[len(front_matter_lines):]
@@ -149,7 +157,7 @@ def read_timestamps(file_path: str) -> List[Tuple[str, float, float]]:
             # scaleTimestamp(start, scale_factor, time_offset),
             # scaleTimestamp(end, scale_factor, time_offset)
             scaleTimestampFloat(timestampToFloat(start), scale_factor, time_offset),
-            scaleTimestampFloat(timestampToFloat(end), scale_factor, time_offset)
+            scaleTimestampFloat(timestampToFloat(end) + lengthen_clips_by, scale_factor, time_offset)
         ))
     return timestamps
 
@@ -172,11 +180,24 @@ def create_clips(
 
     for name, start, end in timestamps:
         try:
-            print(f"\n\nCreating clip '{name}' from {floatToTimestamp(start)} to {floatToTimestamp(end)} ({floatToTimestamp(end-start)} long)")
-            clip = video.subclipped(start, end)
             safe_name = "".join(c if c.isalnum() or c in (' ', '_', '-') else '_' for c in name).strip()
             output_path = os.path.join(output_dir, f"{safe_name}.mp4")
-            clip.write_videofile(output_path, codec='libx264', audio_codec='aac')
+
+
+            print(f"\n\nCreating clip '{name}' from {floatToTimestamp(start)} to {floatToTimestamp(end)} ({floatToTimestamp(end-start)} long)")
+            
+            # timestamps are correct but subclip ends too soon!
+
+            clip = video.subclipped(start, end + 16)
+            print(f"Clip duration: {clip.duration}")
+            
+            clip.write_videofile(output_path)
+            
+            
+            # clip.write_videofile(output_path, codec='libx264', audio_codec='aac')
+            # clip.write_videofile(output_path, codec='libx264', audio=False, fps=video.fps)
+
+
         except Exception as e:
             print(f"Error creating clip '{name}': {e}")
 

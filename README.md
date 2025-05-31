@@ -27,3 +27,8 @@ if a file name/path is the same as an existing file it will overwrite that file
 to make a new timestamps file copy an old one and then use editor features + ai autocomplete to change and remove the needed values
 
 to reuse a timestamps file from openmv<->see3 trim the input video's start with OS tools and copy the timestamps file, maybe a better method exists
+
+
+
+----
+to go into the virtual env on my machine: `source .venv/bin/activate`
