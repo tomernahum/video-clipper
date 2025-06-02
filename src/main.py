@@ -2,7 +2,7 @@ from timestamp_interpreter import interpret_timestamps
 from trimmer import create_clips
 import argparse
 import pprint
-  
+from trimmer import timestampDisplayStr  
 
 def parse_args() -> argparse.Namespace:
     """Parses command‐line arguments."""
@@ -21,14 +21,26 @@ def parse_args() -> argparse.Namespace:
         "-o", "--output-dir", default="output_clips",
         help="Directory where clips will be saved (default: output_clips/)"
     )
+    parser.add_argument(
+        "-d", "--dry-run", action="store_true",
+        help="Do not create clips, just print the plan"
+    )
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
     timestamps = interpret_timestamps(args.timestamps_file)
-    create_clips(
-        video_path=args.video_file,
-        timestamps=timestamps,
-        output_dir=args.output_dir
-    )
+
+    displayPrint = []
+    for name, start, end in timestamps:
+        displayPrint.append((name, timestampDisplayStr(start), timestampDisplayStr(end)))
+    print("Plan:")
+    pprint.pprint(displayPrint)
+
+    if not args.dry_run:
+        create_clips(
+            video_path=args.video_file,
+            timestamps=timestamps,
+            output_dir=args.output_dir
+        )

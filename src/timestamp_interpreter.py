@@ -84,7 +84,7 @@ def replace_words_in_lines(front_matter_kvs: Dict[str, str], lines: List[str]):
     
     words_written_here = front_matter_kvs['words_written_here'].split(",")
     words_to_replace_them_with = front_matter_kvs['words_to_replace_them_with'].split(",")
-
+    # Remove quotes
     words_written_here = [word.strip()[1:-1] for word in words_written_here] 
     words_to_replace_them_with = [word.strip()[1:-1] for word in words_to_replace_them_with]
     
@@ -111,7 +111,9 @@ def remove_empty_lines_and_strip_lines(lines: List[str]):
 def timestampToFloat(timestamp: str) -> float:
     """Converts a timestamp in HH:MM:SS.F format to seconds. Also normalizes the timestamp."""
     parts = normalize_timestamp(timestamp).split(':')
-    return int(parts[0]) * 3600 + int(parts[1]) * 60 + float(parts[2])
+    out = int(parts[0]) * 3600 + int(parts[1]) * 60 + float(parts[2])
+    # print(f"timestampToFloat({timestamp}) = {out}")
+    return out
 def normalize_timestamp(time_str: str) -> str:
     """Ensures the timestamp is in HH:MM:SS.F format."""
     parts = time_str.strip().split(':')
