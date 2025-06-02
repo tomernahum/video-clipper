@@ -30,7 +30,14 @@ def create_clips(
             # maybe fps is the problem?
             # worth trying the old version of moviepy too
 
-            clip = video.subclipped(start, end)
+            try:
+                clip = video.subclipped(start, end)
+            except Exception as e:
+                try:
+                    clip = video.subclip(start, end)
+                except Exception as e:
+                    raise e
+            
             print(f"Clip duration: {clip.duration}")
             print(f"Clip fps: {clip.fps}")
             clip.write_videofile(output_path)
@@ -53,7 +60,8 @@ def create_clips(
 
 def render_full_video(video_path, output_dir):
     video = VideoFileClip(video_path)
-    video.write_videofile(f"{output_dir}/full_input.mp4")
+    video.write_videofile(f"{output_dir}/{os.path.basename(video_path)}_copy.mp4")
+    video.close()
 
 
 

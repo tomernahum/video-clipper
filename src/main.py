@@ -41,6 +41,8 @@ def main():
         return
 
 
+    print("\n\nCreating clips for ", args.video_file)
+
     timestamps = interpret_timestamps(args.timestamps_file)
 
     displayPrint = []

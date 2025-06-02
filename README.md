@@ -1,6 +1,7 @@
 
 
-make sure moveipy is installed
+make sure moviepy is installed. 
+Works best with moviepy v1 `pip install moviepy==1.0.3`
 
 use like this:
 `python trimmer.py -v video.mp4 -t timestamps.txt`
