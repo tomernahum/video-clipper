@@ -30,7 +30,7 @@ def create_clips(
             # maybe fps is the problem?
 
             # clip = video.subclipped(start, end)
-            clip = VideoFileClip(video_path).subclip(start, end)
+            clip = VideoFileClip(video_path).subclipped(start, end)
             print(f"Clip duration: {clip.duration}")
             
             clip.write_videofile(output_path)
