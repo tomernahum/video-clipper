@@ -1,0 +1,10 @@
+
+103_Clean_OpenMV_L_850, 0:05, 0:36
+103_Clean_OpenMV_R_850, 0:44, 1:16
+103_Clean_OpenMV_L_890, 1:36, 2:04
+103_Clean_OpenMV_R_890, 2:11, 2:44.5
+
+103_Wet_OpenMV_L_850, 3:19.5, 3:44.5 #3:25
+103_Wet_OpenMV_R_850, 3:55.5, 4:29.5
+103_Wet_OpenMV_L_890, 4:51, 5:18.5
+103_Wet_OpenMV_R_890, 5:26, 5:59
