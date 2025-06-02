@@ -60,6 +60,8 @@ def main():
         output_dir=args.output_dir
     )
 
+    print("Done processing video \n\n\n")
+
 if __name__ == "__main__":
     main()
 
