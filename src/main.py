@@ -1,8 +1,7 @@
 from timestamp_interpreter import interpret_timestamps
-from trimmer import create_clips
+from trimmer import create_clips, render_full_video, timestampDisplayStr  
 import argparse
 import pprint
-from trimmer import timestampDisplayStr  
 
 def parse_args() -> argparse.Namespace:
     """Parses command‐line arguments."""
@@ -25,11 +24,23 @@ def parse_args() -> argparse.Namespace:
         "-d", "--dry-run", action="store_true",
         help="Do not create clips, just print the plan"
     )
+
+    parser.add_argument(
+        "-f", "--full-video", action="store_true",
+        help="Create a full video of the input clip, instead of clips. this normalizes speed/framerate that the clips seem locked to"
+    ) # Question: Hopefully it is okay that the vid changes when it's cut and rerendered
+    # todo: make this unnecessary
+
     return parser.parse_args()
 
-
-if __name__ == "__main__":
+def main():
     args = parse_args()
+
+    if args.full_video:
+        render_full_video(args.video_file, args.output_dir)
+        return
+
+
     timestamps = interpret_timestamps(args.timestamps_file)
 
     displayPrint = []
@@ -38,9 +49,15 @@ if __name__ == "__main__":
     print("Plan:")
     pprint.pprint(displayPrint)
 
-    if not args.dry_run:
-        create_clips(
-            video_path=args.video_file,
-            timestamps=timestamps,
-            output_dir=args.output_dir
-        )
+    if args.dry_run:
+        return
+
+    create_clips(
+        video_path=args.video_file,
+        timestamps=timestamps,
+        output_dir=args.output_dir
+    )
+
+if __name__ == "__main__":
+    main()
+

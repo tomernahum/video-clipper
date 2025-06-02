@@ -51,7 +51,9 @@ def get_time_mapping_parameters(front_matter_kvs: Dict[str, str]):
     timestamps_written_here = [timestampToFloat(timestamp) for timestamp in timestamps_written_here]
     timestamps_real = [timestampToFloat(timestamp) for timestamp in timestamps_real]
     
-    return compute_linear_time_mapping_parameters(timestamps_written_here, timestamps_real)
+    out = compute_linear_time_mapping_parameters(timestamps_written_here, timestamps_real)
+    print(f"Scale: {out[0]}, Offset: {out[1]}")
+    return out
 
     
 def compute_linear_time_mapping_parameters(

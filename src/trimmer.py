@@ -1,7 +1,9 @@
 import os
-from moviepy import *
+# from moviepy import *
 from typing import List, Tuple
 import pprint
+
+from moviepy.video.io.VideoFileClip import VideoFileClip
 
 def create_clips(
     video_path: str,
@@ -13,10 +15,8 @@ def create_clips(
         os.makedirs(output_dir)
 
     video = VideoFileClip(video_path)
-
     print("Input Video Duration:", video.duration)
-    # pprint.pprint(timestamps)
-
+    print("Input Video FPS:", video.fps)
     for name, start, end in timestamps:
         try:
             safe_name = "".join(c if c.isalnum() or c in (' ', '_', '-') else '_' for c in name).strip()
@@ -28,22 +28,34 @@ def create_clips(
             # timestamps are correct, duration is correct, but subclip still ends too soon!
             # I guess subclip must be written slower than original video
             # maybe fps is the problem?
+            # worth trying the old version of moviepy too
 
-            # clip = video.subclipped(start, end)
-            clip = VideoFileClip(video_path).subclipped(start, end)
+            clip = video.subclipped(start, end)
             print(f"Clip duration: {clip.duration}")
-            
+            print(f"Clip fps: {clip.fps}")
             clip.write_videofile(output_path)
+            clip.close()
             
-            
-            # clip.write_videofile(output_path, codec='libx264', audio_codec='aac')
-            # clip.write_videofile(output_path, codec='libx264', audio=False, fps=video.fps)
+
+
+            # video = VideoFileClip(video_path, audio=False)
+            # clip = video.subclipped(start, end) 
+            # clip.write_videofile(output_path, codec="libx264", audio_codec="aac")
+            # clip.close()
+            # video.close()
 
 
         except Exception as e:
             print(f"Error creating clip '{name}': {e}")
 
     video.close()
+
+
+def render_full_video(video_path, output_dir):
+    video = VideoFileClip(video_path)
+    video.write_videofile(f"{output_dir}/full_input.mp4")
+
+
 
 def timestampDisplayStr(seconds: float) -> str:
     """Converts seconds to (HH):(MM):SS.F format."""
@@ -57,3 +69,6 @@ def timestampDisplayStr(seconds: float) -> str:
     if minutes == 0:
         return f"0:{seconds:09.6f}" 
     return f"{minutes:02d}:{seconds:09.6f}"
+
+
+
