@@ -32,6 +32,10 @@
 # python src/main.py -v ./input_clips/105/105_clean_wet_see3.mp4 -t ./input_timestamps/105/105_clean_wet_see3.txt -o ./output_clips/105_see3
 
 # python src/main.py -v ./input_clips/105/105_warm_dirty_1_see3.mp4 -t ./input_timestamps/105/105_warm_dirty_see3_1.txt -o ./output_clips/105_see3
-python src/main.py -v ./input_clips/105/105_warm_dirty_see3_2.mp4 -t ./input_timestamps/105/105_warm_dirty_see3_2.txt -o ./output_clips/105_see3
+# python src/main.py -v ./input_clips/105/105_warm_dirty_see3_2.mp4 -t ./input_timestamps/105/105_warm_dirty_see3_2.txt -o ./output_clips/105_see3
+
+python src/main.py -v ./input_clips/106/106_clean_wet_see3.mp4 -t ./input_timestamps/106/106_clean_wet_see3.txt -o ./output_clips/106_see3
+
+python src/main.py -v ./input_clips/106/106_warm_dirty_see3.mp4 -t ./input_timestamps/106/106_warm_dirty_see3.txt -o ./output_clips/106_see3
 
 

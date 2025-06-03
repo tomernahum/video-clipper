@@ -1,0 +1,16 @@
+words_written_here: "OpenMV"
+words_to_replace_them_with: "See3"
+
+timestamps_written_here: 13.31, 5:12.54
+equiv_real_timestamps: 10.50, 5:19.12
+
+
+106_Warm_OpenMV_L_850, 0:04, 0:37
+106_Warm_OpenMV_R_850, 0:46, 1:20.5
+106_Warm_OpenMV_L_890, 1:41, 2:10
+106_Warm_OpenMV_R_890, 2:22, 2:50
+
+106_Dirty_OpenMV_L_850, 3:40, 4:12.5
+106_Dirty_OpenMV_R_850, 4:18, 4:54
+106_Dirty_OpenMV_L_890, 5:11, 5:40
+106_Dirty_OpenMV_R_890, 5:47.5, 6:22.5
