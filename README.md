@@ -27,8 +27,14 @@ if a file name/path is the same as an existing file it will overwrite that file
 
 to make a new timestamps file copy an old one and then use editor features + ai autocomplete to change and remove the needed values
 
-to reuse a timestamps file from openmv<->see3 trim the input video's start with OS tools and copy the timestamps file, maybe a better method exists
+to reuse a timestamps file for a video file shot at the same time by a different camera, just copy the timestamps file you have, and then find two moments that are the same in both videos and write their timestamps, the program will compute a linear mapping (offset + speed up factor) and apply it to the written input timestamps while processing the new video
 
+```
+timestamps_written_here: momentOneCameraOne, momentTwoCameraOne
+equiv_real_timestamps: momentOneCameraTwo, momentTwoCameraTwo
+
+output_file_one, startMomentCameraOne, endMomentCameraOne # transforms into equivilent moements from camera two
+```
 
 
 ----
