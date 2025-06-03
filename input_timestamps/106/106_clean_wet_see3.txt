@@ -6,7 +6,7 @@ words_to_replace_them_with: "See3"
 timestamps_written_here: 0:15.47, 04:22.10
 equiv_real_timestamps: 0:11.83, 04:11.20
 
-106_Clean_OpenMV_L_850, 0:00, 0:40
+!106_Clean_OpenMV_L_850, 0:05, 0:40   # not processing it correctly at true start of "0:00", probably offsets to negative time...
 106_Clean_OpenMV_R_850, 0:52, 1:25
 106_Clean_OpenMV_L_890, 1:46, 2:18
 106_Clean_OpenMV_R_890, 2:28, 3:03
