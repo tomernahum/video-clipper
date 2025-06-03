@@ -10,7 +10,7 @@ outputs to `output_clips/` by default
 
 timestamps file is of format:
 name, start, end
-with start and end in HH:MM:SS.Fraction format 
+with start and end in HH:MM:SS.Fraction format (you can omit 0s for hours and minutes)
 and multiple lines for multiple clips
 
 for example: \
@@ -35,6 +35,9 @@ equiv_real_timestamps: momentOneCameraTwo, momentTwoCameraTwo
 
 output_file_one, startMomentCameraOne, endMomentCameraOne # transforms into equivilent moements from camera two
 ```
+
+you can also add similar `words_written_here` and `words_to_replace_them_with` to replace words in the output file names.
+See one of the see3 input files for an example.
 
 
 ----
