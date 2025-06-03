@@ -1,0 +1,4 @@
+
+# continued from part 1
+105_Dirty_OpenMV_L_890, 25, 52 # 20.5
+105_Dirty_OpenMV_R_890, 1:00, 1:33.8
