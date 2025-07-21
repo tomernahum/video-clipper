@@ -1,0 +1,8 @@
+
+
+110_Warm_OpenMV_L_850, 0:18, 0:35 
+#^ starts at 0:07.5, takes hand away briefly at 0:15 - 0:18
+
+110_Warm_OpenMV_R_850, 0:43, 1:16.5
+110_Dirty_OpenMV_L_850, 1:37, 2:06
+110_Dirty_OpenMV_R_850, 2:13, 2:48.5

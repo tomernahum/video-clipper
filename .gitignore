@@ -1,7 +1,13 @@
 
-.venv
+.vscode
+bin
+include
+lib
+pyvenv.cfg
+__pycache__
 
 
 input_clips
+input_clips_old
+_old
 output_clips
-out_to_upload

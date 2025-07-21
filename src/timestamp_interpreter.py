@@ -77,7 +77,12 @@ def compute_linear_time_mapping_parameters(
     return scale, offset
 
 def scale_timestamp_float(timestamp: float, scale: float, offset: float) -> float:
-    return timestamp * scale + offset
+    out = timestamp * scale + offset
+    if (out < 0):
+        return 0
+    # todo maybe. if out > length of videoe make it the length (idk what moviepy does automatically)
+    return out
+    print(f"scaling timestamp {timestamp} scale {scale} offset {offset} output {timestamp * scale + offset} ")
 
 def replace_words_in_lines(front_matter_kvs: Dict[str, str], lines: List[str]):
     if not ('words_written_here' in front_matter_kvs and 'words_to_replace_them_with' in front_matter_kvs):

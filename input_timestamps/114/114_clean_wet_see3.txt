@@ -1,0 +1,14 @@
+
+words_written_here: "OpenMV"
+words_to_replace_them_with: "See3"
+
+timestamps_written_here: 0:06.40, 2:49.34
+equiv_real_timestamps: 0:04.20, 2:52.21
+
+
+
+114_Clean_OpenMV_L_850, 0:00, 0:39
+114_Clean_OpenMV_R_850, 0:49.5, 1:23
+
+114_Wet_OpenMV_L_850, 1:44, 2:12.5
+114_Wet_OpenMV_R_850, 2:16, 2:53.5

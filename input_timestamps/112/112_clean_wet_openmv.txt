@@ -1,0 +1,7 @@
+
+
+112_Clean_OpenMV_L_850, 0:00, 0:40
+112_Clean_OpenMV_R_850, 0:53, 1:32  # too close for a lot of it
+
+112_Wet_OpenMV_L_850, 1:52, 2:26.5
+112_Wet_OpenMV_R_850, 2:33.5, 3:02.7
