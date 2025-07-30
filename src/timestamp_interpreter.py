@@ -1,7 +1,7 @@
 from typing import List, Tuple, Dict
 import pprint
 
-def interpret_timestamps(timestamps_file_path: str) -> List[Tuple[str, float, float]]:
+def interpret_timestamps(timestamps_file_path: str, ignoreImportanceIndicators: bool = False) -> List[Tuple[str, float, float]]:
     with open(timestamps_file_path, 'r') as f:
         lines = f.readlines()
     
@@ -9,7 +9,10 @@ def interpret_timestamps(timestamps_file_path: str) -> List[Tuple[str, float, fl
     lines = remove_empty_lines_and_strip_lines(lines)
     front_matter_kvs, lines = get_front_matter(lines)
     lines = replace_words_in_lines(front_matter_kvs, lines)
-    lines = get_important_lines(lines)
+    if not ignoreImportanceIndicators:
+        lines = get_important_lines(lines)
+    else:
+        lines = strip_importance_indicators(lines)
 
     scale, offset = get_time_mapping_parameters(front_matter_kvs)
 
@@ -105,7 +108,12 @@ def get_important_lines(lines: List[str]):
         return [line[1:] for line in lines if line.startswith('!')]
     else:
         return lines
-
+def strip_importance_indicators(lines: List[str]):
+    out = lines.copy()
+    for i in range(len(lines)):
+        if lines[i].startswith('!'):
+            out[i] = lines[i][1:]
+    return out
 def remove_comments(lines: List[str]):
     return [line.split('#')[0] for line in lines]
 

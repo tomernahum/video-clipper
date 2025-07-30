@@ -30,6 +30,7 @@ def parse_args() -> argparse.Namespace:
         help="Create a full video of the input clip, instead of clips. this normalizes speed/framerate that the clips seem locked to"
     ) # Question: Hopefully it is okay that the vid changes when it's cut and rerendered
     # todo: make this unnecessary
+    # outdated
 
     return parser.parse_args()
 
